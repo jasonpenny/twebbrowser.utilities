@@ -1,0 +1,8 @@
+*.bpl
+*.dcp
+*.dcu
+*.identcache
+*.local
+*.exe
+*.map
+*.jdbg
