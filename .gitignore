@@ -6,3 +6,7 @@
 *.exe
 *.map
 *.jdbg
+# Resource String file, always re-generated if compiler setting is set (-GD)
+*.drc
+# leave out Delphi 2009 project files, because they cause errors when trying to open in Delphi 2007
+*.dproj
