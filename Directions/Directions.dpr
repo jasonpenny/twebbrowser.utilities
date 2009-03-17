@@ -5,10 +5,11 @@ uses
   fDirections in 'fDirections.pas' {frmDirections},
   uSimpleDirections in 'uSimpleDirections.pas',
   Automation in '..\lib\Others\Automation.pas',
-  uWBGoogleMaps in '..\lib\uWBGoogleMaps.pas',
   IntfDocHostUIHandler in '..\lib\Others\IntfDocHostUIHandler.pas',
   UContainer in '..\lib\Others\UContainer.pas',
-  UNulContainer in '..\lib\Others\UNulContainer.pas';
+  UNulContainer in '..\lib\Others\UNulContainer.pas',
+  uWebBrowser in '..\lib\uWebBrowser.pas',
+  uWBGoogleMaps in '..\lib\uWBGoogleMaps.pas';
 
 {$R *.res}
 
