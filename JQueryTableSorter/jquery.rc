@@ -1,0 +1,6 @@
+JQUERY RCDATA "jquery-1.3.1.min.js"
+TABLESORT RCDATA "jquery.tablesorter.min.js"
+JQCSSRULE RCDATA "jquery.cssRule.js"
+IMAGEDESC 23 "desc.gif"
+IMAGEASC 23 "asc.gif"
+IMAGEBG 23 "bg.gif"
