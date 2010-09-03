@@ -43,6 +43,8 @@ type
   end;
 
   TExtJavaScript = class(TObjectWrapper)
+  public
+    DirectionsForm: TfrmDirections;
   published
     procedure NewDirections;
     procedure AddWaypoint(const aLocation, aAddress, aRouteDistanceHTML, aRouteDurationHTML: String);
@@ -217,6 +219,7 @@ begin
    ///   to call Delphi functions using "external.procedure()"
 
    W := TExtJavaScript.Connect(Forms.Application);
+   W.DirectionsForm := Self;
    ppDispatch := TAutoObjectDispatch.Create(W) as IDispatch;
    Result := S_OK;
 end;
@@ -225,18 +228,18 @@ end;
 
 procedure TExtJavaScript.NewDirections;
 begin
-   frmDirections.Listbox1.Clear;
-   frmDirections.fSimpleDirections.Clear;
+   DirectionsForm.Listbox1.Clear;
+   DirectionsForm.fSimpleDirections.Clear;
 end;
 
 procedure TExtJavaScript.AddStep(const aLocation, aStepDescriptionHTML, aStepDistanceHTML: String);
 begin
-   frmDirections.fSimpleDirections.AddStep(aLocation, aStepDescriptionHTML, aStepDistanceHTML);
+   DirectionsForm.fSimpleDirections.AddStep(aLocation, aStepDescriptionHTML, aStepDistanceHTML);
 end;
 
 procedure TExtJavaScript.AddWaypoint(const aLocation, aAddress, aRouteDistanceHTML, aRouteDurationHTML: String);
 begin
-   frmDirections.fSimpleDirections.AddWaypoint(aLocation, aAddress, aRouteDistanceHTML, aRouteDurationHTML);
+   DirectionsForm.fSimpleDirections.AddWaypoint(aLocation, aAddress, aRouteDistanceHTML, aRouteDurationHTML);
 end;
 
 function RemoveHTML(const s: String): String;
@@ -283,9 +286,9 @@ var
 begin
    waypointLetter := 'A';
 
-   for i := 0 to frmDirections.fSimpleDirections.Count - 1 do
+   for i := 0 to DirectionsForm.fSimpleDirections.Count - 1 do
    begin
-      wp := frmDirections.fSimpleDirections.Waypoints[i];
+      wp := DirectionsForm.fSimpleDirections.Waypoints[i];
 
       if wp.Count > 0 then
          UniqueStepID := wp.Steps[0].UniqueStepID
@@ -297,7 +300,7 @@ begin
       else
          routeDistance := ' [' + wp.RouteDistanceHTML + ']';
 
-      frmDirections.ListBox1.AddItem(
+      DirectionsForm.ListBox1.AddItem(
          waypointLetter + ': ' + RemoveHTML(wp.Address + routeDistance),
          Pointer(UniqueStepID)
       );
@@ -306,7 +309,7 @@ begin
       begin
          s := wp.Steps[j];
 
-         frmDirections.ListBox1.AddItem(
+         DirectionsForm.ListBox1.AddItem(
             '  ' + IntToStr(j+1) + ': ' + RemoveHTML(s.DescriptionHTML),
             Pointer(s.UniqueStepID) // put a unique ID in the Item's Object for the callback.
          );
@@ -315,7 +318,7 @@ begin
       Inc(waypointLetter);
    end;
 
-   frmDirections.ListBox1.AddItem(
+   DirectionsForm.ListBox1.AddItem(
       ' ** ' + StringReplace(aValue, '&#169;', '©', [rfReplaceAll]) + ' ** ',
       Pointer(-2)
    );
